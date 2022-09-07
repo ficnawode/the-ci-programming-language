@@ -1,0 +1,5 @@
+add_expr : mult_expr ((PLUS|MINUS) mult_expr)*
+
+mult_expr : literal ((MUL|DIV) literal)*
+
+literal : INT:FLOAT
