@@ -15,7 +15,7 @@ class Error:
         res += f"File {self.pos_start.filename}, line {self.pos_start.linenumber}"
         res += (
             "\n\t"
-            + text_quote(self.pos_start.filetxt, self.pos_start, self.pos_end)
+            + self.text_quote(self.pos_start.filetxt, self.pos_start, self.pos_end)
             + "\n"
         )
         return res

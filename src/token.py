@@ -14,10 +14,12 @@ class Token_keywords(Enum):
     MUL = "razy"
     EQ = "równa_się"
 
+
 class Token_symbols(Enum):
     LPAREN = "("
     RPAREN = ")"
     DOT = "."
+
 
 class Token:
     def __init__(
