@@ -1,6 +1,6 @@
-from src.token import Token_keywords
+import src.token_types as TT
 
 
 def test_enum_values():
-    for token in Token_keywords:
+    for token in TT.Keywords:
         assert type(token.value) == str

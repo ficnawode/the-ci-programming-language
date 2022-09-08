@@ -1,11 +1,11 @@
 class Position:
     def __init__(
-        self, id: int, column: int, linenumber: int, filename: str, filetxt: str
+        self, id: int, column: int, linenumber: int, file_name: str, filetxt: str
     ):
         self.id = id
         self.column = column
         self.linenumber = linenumber
-        self.filename = filename
+        self.file_name = file_name
         self.filetxt = filetxt
 
     def advance(self, id_offset=0, column_offset=0, line_offset=0):
@@ -18,5 +18,5 @@ class Position:
 
     def copy(self):
         return Position(
-            self.id, self.linenumber, self.column, self.filename, self.filetxt
+            self.id, self.linenumber, self.column, self.file_name, self.filetxt
         )

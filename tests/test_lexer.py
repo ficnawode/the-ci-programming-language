@@ -1,9 +1,9 @@
 from src.lexer import Lexer
-from src.token import Token_keywords, Token_literals, Token_symbols
+import src.token_types as TT
 
 
 def test_all_tokens():
-    for keyword in Token_keywords:
+    for keyword in TT.Keywords:
         tokens, error = Lexer(" \r " + keyword.value + " \n\t  ").lex()
         assert not error
         assert tokens[0].type.name == keyword.name
@@ -14,14 +14,14 @@ def test_float_token_positive():
     for test_case in test_cases:
         tokens, error = Lexer(test_case).lex()
         assert not error
-        assert tokens[0].type.name == Token_literals.FLOAT.name
+        assert tokens[0].type.name == TT.Literals.FLOAT.name
 
 
 def test_float_token_negative():
     test_cases = ["1a", "123", "2.9h", "plus3.2", "1.0.1"]
     for test_case in test_cases:
         tokens, error = Lexer(test_case).lex()
-        assert error or tokens[0].type.name != Token_literals.FLOAT.name
+        assert error or tokens[0].type.name != TT.Literals.FLOAT.name
 
 
 def test_int_token_positive():
@@ -29,14 +29,14 @@ def test_int_token_positive():
     for test_case in test_cases:
         tokens, error = Lexer(test_case).lex()
         assert not error
-        assert tokens[0].type.name == Token_literals.INT.name
+        assert tokens[0].type.name == TT.Literals.INT.name
 
 
 def test_int_token_negative():
     test_cases = ["1B", "1.0.1", "1plus"]
     for test_case in test_cases:
         tokens, error = Lexer(test_case).lex()
-        assert error or tokens[0].type.name != Token_literals.INT.name
+        assert error or tokens[0].type.name != TT.Literals.INT.name
 
 
 def test_complex_case():
@@ -44,24 +44,26 @@ def test_complex_case():
         (
             "((()))",
             [
-                Token_symbols.LPAREN,
-                Token_symbols.LPAREN,
-                Token_symbols.LPAREN,
-                Token_symbols.RPAREN,
-                Token_symbols.RPAREN,
-                Token_symbols.RPAREN,
+                TT.Symbols.LPAREN,
+                TT.Symbols.LPAREN,
+                TT.Symbols.LPAREN,
+                TT.Symbols.RPAREN,
+                TT.Symbols.RPAREN,
+                TT.Symbols.RPAREN,
+                TT.Abstract.EOF,
             ],
         ),
         (
             "(10 plus 47.0 równa_się 57.0)",
             [
-                Token_symbols.LPAREN,
-                Token_literals.INT,
-                Token_keywords.PLUS,
-                Token_literals.FLOAT,
-                Token_keywords.EQ,
-                Token_literals.FLOAT,
-                Token_symbols.RPAREN,
+                TT.Symbols.LPAREN,
+                TT.Literals.INT,
+                TT.Keywords.PLUS,
+                TT.Literals.FLOAT,
+                TT.Keywords.EQ,
+                TT.Literals.FLOAT,
+                TT.Symbols.RPAREN,
+                TT.Abstract.EOF,
             ],
         ),
     ]
